@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.awifi.log.mapper.OperLogMapper">
+
+    <resultMap id="BaseResultMap" type="com.awifi.log.model.OperLog">
+                 <result column="id" property="id" jdbcType="BIGINT" />
+                 <result column="comp_name" property="compName" jdbcType="VARCHAR" />
+                 <result column="module_name" property="moduleName" jdbcType="VARCHAR" />
+                 <result column="detail" property="detail" jdbcType="VARCHAR" />
+                 <result column="user_name" property="userName" jdbcType="VARCHAR" />
+                 <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+                 <result column="user_id" property="userId" jdbcType="BIGINT" />
+                 <result column="ip" property="ip" jdbcType="VARCHAR" />
+    </resultMap>
+    
+    <sql id="Base_Column_List">
+                 np_biz_oper_log.id,
+                 np_biz_oper_log.comp_name,
+                 np_biz_oper_log.module_name,
+                 np_biz_oper_log.detail,
+                 np_biz_oper_log.user_name,
+                 np_biz_oper_log.create_time,
+                 np_biz_oper_log.user_id,
+                 np_biz_oper_log.ip
+    </sql>
+    
+    <select id="getCountByParams" resultType="int" parameterType="map">
+        select count(np_biz_oper_log.id) from np_biz_oper_log 
+        where 1=1
+            <if test="id != null ">
+                and np_biz_oper_log.id = #{id}
+            </if>
+            <if test="compName != null ">
+                and np_biz_oper_log.comp_name = #{compName}
+            </if>
+            <if test="moduleName != null ">
+                and np_biz_oper_log.module_name = #{moduleName}
+            </if>
+            <if test="detail != null ">
+                and np_biz_oper_log.detail = #{detail}
+            </if>
+            <if test="userName != null ">
+                and np_biz_oper_log.user_name = #{userName}
+            </if>
+            <if test="createTime != null ">
+                and np_biz_oper_log.create_time = #{createTime}
+            </if>
+            <if test="userId != null ">
+                and np_biz_oper_log.user_id = #{userId}
+            </if>
+            <if test="ip != null ">
+                and np_biz_oper_log.ip = #{ip}
+            </if>
+    </select>
+    
+    <select id="getOperLogById" parameterType="map" resultMap="BaseResultMap">
+        select
+            <include refid="Base_Column_List" />
+        from
+            np_biz_oper_log
+        where 
+        np_biz_oper_log.id=#{id}
+    </select>
+    
+    <select id="getOperLogListByParams" parameterType="map" resultMap="BaseResultMap">
+    	select
+    		<include refid="Base_Column_List" />
+    	from
+    		np_biz_oper_log
+    	where 1=1
+            <if test="id != null">
+                and np_biz_oper_log.id = #{id}
+            </if>
+            <if test="compName != null">
+                and np_biz_oper_log.comp_name = #{compName}
+            </if>
+            <if test="moduleName != null">
+                and np_biz_oper_log.module_name = #{moduleName}
+            </if>
+            <if test="detail != null">
+                and np_biz_oper_log.detail = #{detail}
+            </if>
+            <if test="userName != null">
+                and np_biz_oper_log.user_name = #{userName}
+            </if>
+            <if test="createTime != null">
+                and np_biz_oper_log.create_time = #{createTime}
+            </if>
+            <if test="userId != null">
+                and np_biz_oper_log.user_id = #{userId}
+            </if>
+            <if test="ip != null">
+                and np_biz_oper_log.ip = #{ip}
+            </if>
+    	<if test="begin != null and pageSize != null">
+            LIMIT
+            #{begin,jdbcType=DECIMAL},#{pageSize,jdbcType=DECIMAL}
+        </if>
+    </select>
+    
+    <insert id="addOperLog" parameterType="com.awifi.log.model.OperLog" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
+    	insert into np_biz_oper_log
+    	(
+        	<if test="id != null ">
+        		id,
+            </if>
+        	<if test="compName != null ">
+        		comp_name,
+            </if>
+        	<if test="moduleName != null ">
+        		module_name,
+            </if>
+        	<if test="detail != null ">
+        		detail,
+            </if>
+        	<if test="userName != null ">
+        		user_name,
+            </if>
+        	<if test="userId != null ">
+        		user_id,
+            </if>
+        	<if test="ip != null ">
+        		ip,
+            </if>
+        		create_time
+    	)
+    	values
+    	(
+            <if test="id != null ">
+        		#{ id , jdbcType=BIGINT},
+            </if>
+            <if test="compName != null ">
+        		#{ compName , jdbcType=VARCHAR},
+            </if>
+            <if test="moduleName != null ">
+        		#{ moduleName , jdbcType=VARCHAR},
+            </if>
+            <if test="detail != null ">
+        		#{ detail , jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null ">
+        		#{ userName , jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null ">
+        		#{ userId , jdbcType=BIGINT},
+            </if>
+            <if test="ip != null ">
+        		#{ ip , jdbcType=VARCHAR},
+            </if>
+            now()
+    	)
+    </insert>
+    
+    <update id="updateOperLog" parameterType="com.awifi.log.model.OperLog">
+    	update np_biz_oper_log
+    		set
+    			     <if test="id != null">
+    		              id=#{id},
+    	   		     </if>
+    			     <if test="compName != null">
+    		              comp_name=#{compName},
+    	   		     </if>
+    			     <if test="moduleName != null">
+    		              module_name=#{moduleName},
+    	   		     </if>
+    			     <if test="detail != null">
+    		              detail=#{detail},
+    	   		     </if>
+    			     <if test="userName != null">
+    		              user_name=#{userName},
+    	   		     </if>
+    			     <if test="createTime != null">
+    		              create_time=#{createTime},
+    	   		     </if>
+    			     <if test="userId != null">
+    		              user_id=#{userId},
+    	   		     </if>
+    			     <if test="ip != null">
+    		              ip=#{ip}
+    	   		     </if>
+    		where id= #{id}
+    </update>
+    
+    <delete id="deleteOperLog" parameterType="map">
+    	delete from np_biz_oper_log
+    	where id= #{id}
+    </delete>
+</mapper>
