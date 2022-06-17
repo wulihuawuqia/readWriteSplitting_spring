@@ -18,7 +18,7 @@
 		<aspectj.version>1.8.8</aspectj.version>
 		<druid.version>1.0.29</druid.version>
 		<lang3.version>3.4</lang3.version>
-		<fastjson.version>1.2.23</fastjson.version>
+		<fastjson.version>1.2.83</fastjson.version>
 		<servlet-api.version>3.1.0</servlet-api.version>
 		<commons-io.version>2.4</commons-io.version>
 		<commons-beanutils.version>1.9.1</commons-beanutils.version>
